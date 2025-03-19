@@ -16,35 +16,29 @@ export type SettingsProps = {
 // Create a context with default values
 
 export const useSettings = create<SettingsProps>(() => ({
-  primaryColor:'dirk', 
+  primaryColor:'violet', 
   primaryShade: 9,
-  itemImgPath: 'nui://dirk_inventory/web/images/',
   customTheme: [
-    "#fdf9e4",
-    "#f6f1d4",
-    "#ebe1ad",
-    "#e0d083",
-    "#d6c25f",
-    "#d0b947",
-    "#cdb439",
-    "#b59e2a",
-    "#a18c21",
-    "#8b7913"
+    "#f7ecff",
+    "#e7d6fb",
+    "#caaaf1",
+    "#ac7ce8",
+    "#9354e0",
+    "#833bdb",
+    "#7b2eda",
+    "#6921c2",
+    "#5d1cae",
+    "#501599"
   ],
-
-
-  // Add more default settings here
+  itemImgPath: 'nui://dirk_inventory/web/images/',
+  // NOTE: Add more default settings here when needed
 }));
 
 
 addInitialFetch('fetchSettings', () => {
   if (!isEnvBrowser()) {
-    fetchNui<{
-      primaryColor: string;
-      primaryShade: MantineColorShade;
-      customTheme: MantineColorsTuple;
-    }>('GET_SETTINGS')
-      .then((data) => {
+    fetchNui<SettingsProps>('GET_SETTINGS')
+      .then((data: SettingsProps) => {
         // Ensure data is of type SettingsProps
         if (data.primaryColor && data.primaryShade && data.customTheme) {
           useSettings.setState({
