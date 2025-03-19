@@ -5,15 +5,17 @@ import { locale } from "../../stores/locales";
 import { useSettings } from "../../stores/settings";
 import colorWithAlpha from "../../utils/colorWithAlpha";
 import { Title } from "../Generic/Title";
+import { useNuiEvent } from "../../hooks/useNuiEvent";
 
 
 type ExampleStoreProps = {
   open: boolean;
+  exampleText: string;
 };
 
 const exampleStore = create<ExampleStoreProps>((set, get) => ({
   open: true, 
-
+  exampleText: 'default',
   exampleFunction: () => {
     // notice we have to use set, get, or api to access the store to get most recent data
     const open = get().open;
@@ -27,7 +29,12 @@ export default function MyComponent(){
   const primaryColor = useSettings((data) => data.primaryColor);
   const primaryShade = useSettings((data) => data.primaryShade);
   const open = exampleStore((state) => state.open);
+  const exampleText = exampleStore((state) => state.exampleText);
 
+  // here we listen for a message from lua/game and update the store with the data (auto re-renders anything using this store)
+  useNuiEvent<string>('EXAMPLE_MESSAGE', function(data: string){
+    exampleStore.setState({ exampleText: data });
+  });
 
   // listen for escape key 
   useEffect(() => {
@@ -94,7 +101,7 @@ export default function MyComponent(){
 
             </Flex>
           </Flex>
-
+          <Text>{exampleText}</Text>
         </Flex>
 
       )}

@@ -73,16 +73,15 @@ jobs:
 
       - name: Bundle files
         run: |
-          mkdir -p ./temp/dirk_traphouses
-          mkdir -p ./temp/dirk_traphouses/web/
-          cp ./fxmanifest.lua ./temp/dirk_traphouses/
-          cp ./README.md ./temp/dirk_traphouses/
-          cp -r ./INSTALLATION ./temp/dirk_traphouses
-          cp -r ./locales ./temp/dirk_traphouses
-          cp -r ./modules ./temp/dirk_traphouses
-          cp -r ./settings ./temp/dirk_traphouses
-          cp -r ./web/build ./temp/dirk_traphouses/web/
-          cd ./temp && zip -r ../dirk_traphouses.zip ./dirk_traphouses
+          mkdir -p ./temp/dirk_reactBoilerplate
+          mkdir -p ./temp/dirk_reactBoilerplate/web/
+          cp ./fxmanifest.lua ./temp/dirk_reactBoilerplate/
+          cp ./README.md ./temp/dirk_reactBoilerplate/
+          cp -r ./src ./temp/dirk_reactBoilerplate
+          cp -r ./locales ./temp/dirk_reactBoilerplate
+          cp -r ./settings ./temp/dirk_reactBoilerplate
+          cp -r ./web/build ./temp/dirk_reactBoilerplate/web/
+          cd ./temp && zip -r ../dirk_reactBoilerplate.zip ./dirk_reactBoilerplate
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
         id: auto_release
@@ -90,7 +89,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Use the GitHub token from the repository secrets
           title: "Release ${{ env.RELEASE_VERSION }}" # Use the version extracted from the workflow
           prerelease: false
-          files: dirk_traphouses.zip # Specify the file to attach to the release
+          files: dirk_reactBoilerplate.zip # Specify the file to attach to the release
           automatic_release_tag: 'latest_production' # Tag name for the release
         env:
           CI: false

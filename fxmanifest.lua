@@ -8,10 +8,10 @@ version '1.0.0'
 
 client_script { 
   'src/client/ui.lua', 
-  'src/client/example.lua',
 } 
  
 ui_page 'web/build/index.html'
+
 files {
 	'web/build/index.html',
 	'web/build/**/*',

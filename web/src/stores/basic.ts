@@ -2,48 +2,15 @@ import { create } from "zustand";
 import { fetchLuaTable } from "../utils/fetchLuaTable";
 import { addInitialFetch } from "../utils/initialFetch";
 
+
+// Autofetch and define the props for some of your .lua config/settings files here then use them anywhere in your app.
 type BasicSettingsProps = {
-  currency: string;
-  costPerKey: number;
-  allowManagers: boolean;
-  costChangeLocks: number;
-  groupAccess: boolean;
-  transferOwnership: boolean;
-  permissions: string[];
-  accessGroups: string[];
+  exampleConfigValue: string;
 } 
 
 
 export const basic = create<BasicSettingsProps>(() => ({
-  currency: '$',
-  costPerKey: 100,
-  costChangeLocks: 200,
-  allowManagers: false,
-  groupAccess: true,
-  transferOwnership: true,
-  accessGroups: [
-    'Owner',
-    'Manager',
-    'Occupant',
-  ],
-  permissions: [
-    'basic.name',
-    'locks.operate',
-    'locks.change',
-    'locks.create',
-    'upgrades.buy',
-    'occupants.remove',
-    'occupants.arm',
-    'occupants.praise',
-    'occupants.warn',
-    'webhooks.edit',
-    'sales.edit',
-    'managers.remove',
-    'managers.edit',
-    'managers.add',
-    'camera.view',
-    'utility.pay',
-  ],
+  exampleConfigValue: 'default',
 }));
 
 addInitialFetch('fetchBasic', () => {
