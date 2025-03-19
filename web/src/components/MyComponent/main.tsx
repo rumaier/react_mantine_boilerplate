@@ -1,66 +1,103 @@
+import { Flex, Text, Transition, useMantineTheme } from "@mantine/core";
+import { useEffect } from "react";
+import { create } from "zustand";
+import { locale } from "../../stores/locales";
+import { useSettings } from "../../stores/settings";
+import colorWithAlpha from "../../utils/colorWithAlpha";
+import { Title } from "../Generic/Title";
 
-import {Box, Center, Image, Title, Text, useMantineTheme} from '@mantine/core';
-import React, { useState } from "react";
-import { useNuiEvent } from "../../hooks/useNuiEvent";
-import { fetchNui } from "../../utils/fetchNui";
-import { useLocale } from '../../providers/locales/locales';
 
-export default function MyComponent() {
-  const locale = useLocale();
-  const [ opened, setOpened ] = useState(true);
+type ExampleStoreProps = {
+  open: boolean;
+};
+
+const exampleStore = create<ExampleStoreProps>((set, get) => ({
+  open: true, 
+
+  exampleFunction: () => {
+    // notice we have to use set, get, or api to access the store to get most recent data
+    const open = get().open;
+    set(() => ({ open: open }));
+  },
+}));
+
+
+export default function MyComponent(){
   const theme = useMantineTheme();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  useNuiEvent('UI_STATE' , (data: any) => {
-    if (data.action === 'OPEN') {
-      setOpened(true);
-    }
-    if (data.action === 'CLOSE') {
-      setOpened(false);
-    }
+  const primaryColor = useSettings((data) => data.primaryColor);
+  const primaryShade = useSettings((data) => data.primaryShade);
+  const open = exampleStore((state) => state.open);
 
-  })
 
-  // Listen for escape key 
-  React.useEffect(() => {
+  // listen for escape key 
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        if (opened){
-          setOpened(false)
-          fetchNui('LOSE_FOCUS', {})
-        }
+        exampleStore.setState({ open: false });
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  });
-  
-  
+  }, []);
 
   return (
-    <>
-      {opened ? 
-        <Center w='100%' h='100%'>
-          <Box bg='dark.8' w='25%' h='fit-content' p='sm' style={{
-            borderRadius: 'var(--mantine-radius-md)', 
+    <Transition
+      mounted={open}
+      transition='fade'
+      duration={500}
+      timingFunction='ease'
+    >
+      {(transStyles) => (
+        <Flex
+          pos='absolute'
+          top='50%'
+          left='50%'
+          bg='rgba(0,0,0,0.8)'
 
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
-            <Title order={1} style={{textAlign: 'center'}}>{locale('title')}</Title>
-            <Text>{locale('subtitle')}</Text>
-            <Image src='https://static.vecteezy.com/system/resources/previews/024/704/874/original/koala-with-ai-generated-free-png.png' alt='Bernie' h='90%' w='100%' />
+          w='50vh'
+          // h='50vh'
+          style={{
+            transform: 'translate(-50%, -50%)',
+            ...transStyles,
+          }}
+          p='xs'
+          direction='column'
+          gap='sm'
 
-            <Text>{locale('theme_color', theme.primaryColor)}</Text>
-            <Box
-              bg={theme.primaryColor}
-              h='20px'
-              w='100%'
-            ></Box>
-          </Box>
+        >
+          <Title
+            title={locale('MyComponent')}
+            description={locale('MyComponentDescription')}
+            icon={'fas fa-cogs'}
+          />
 
+          <Flex
+            align='center'
+            bg='rgba(77, 77, 77, 0.5)'
+            c='rgba(255, 255, 255, 0.8)'
+            p='xs'
+            style={{
+              borderRadius: theme.radius.xs,
+            }}
+          >
+            <Text size='sm'>{locale('Color:')} {primaryColor.toUpperCase()} {locale('Shade:')} {primaryShade}</Text>
+            <Flex
+              ml='auto'
+              style={{
+                borderRadius: theme.radius.xxs,
+                outline: 'rgba(0,0,0,0.9) solid 0.1vh',
+              }}
+              bg={colorWithAlpha(theme.colors[primaryColor][primaryShade], 0.8)}
+              h='3vh'
+              w='25%'
+            >
 
-        </Center>
-      : ''}
-    </>
-  );
+            </Flex>
+          </Flex>
+
+        </Flex>
+
+      )}
+    </Transition>
+  )
 }

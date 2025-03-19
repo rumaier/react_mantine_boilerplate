@@ -10,3 +10,8 @@ export const splitFAString = (faString:string) => {
   if (!prefix || !newIcon) return {prefix: 'fas', newIcon: 'question'};
   return {prefix, newIcon};
 }
+
+export const numberToRoman = (num:number) => {
+  const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX']  
+  return romanNumerals[num]
+}

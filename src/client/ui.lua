@@ -1,4 +1,6 @@
 RegisterNuiCallback('GET_SETTINGS', function(data, cb)
+
+
   cb({
     primaryColor = 'clean', 
     primaryShade = 9, 
@@ -18,11 +20,35 @@ RegisterNuiCallback('GET_SETTINGS', function(data, cb)
     -- ADD YOUR SETTINGS HERE THEY WILL PULL WHEN THE UI INITIALIZES
   })
 
+
+  --[[ -- using dirk_lib
+    cb({
+      primaryColor = lib.settings.primaryColor,
+      primaryShade = lib.settings.primaryShade, 
+      customTheme  = lib.settings.customTheme,
+    })
+
+  ]]
+
 end)
+
 
 RegisterNuiCallback('GET_LOCALES', function(data, cb)
   cb({
     my_locale = 'My Locale',
   })
+  -- using dirk_lib
   -- cb(lib.getLocales())
+end)
+
+RegisterNuiCallback('GET_LUA_TABLE', function(data, cb)
+  local tableName = data.tableName
+  -- I put all my 'configs' within a settings folder you may want to change to config or wahtever the fuck you use
+  -- Also it expects to load it like a return {}
+  local table = lib.load(('settings/%s'):format(tableName))
+  if not table then 
+    cb('failed')
+    return lib.print.info(('Table %s was requested by NUI but not found'):format(tableName))
+  end 
+  cb(table)
 end)

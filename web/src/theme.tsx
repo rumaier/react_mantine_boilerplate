@@ -1,13 +1,14 @@
 import { createTheme } from "@mantine/core";
 
 const theme = createTheme({
-  primaryColor: "clean",
-  primaryShade: 7,
-  defaultRadius: "sm",
+  primaryColor: "dirk",
+  primaryShade: 9,
+  defaultRadius: "xxs",
   fontFamily: "Akrobat Regular, sans-serif",
 
   radius:{
-    xs: '0.5vh',
+    xxs: '0.2vh',
+    xs: '0.4vh',
     sm: '0.75vh',
     md: '1vh',
     lg: '1.5vh',
@@ -16,6 +17,7 @@ const theme = createTheme({
   },
 
   fontSizes: {
+    xxs: '1.2vh',
     xs: '1.5vh',
     sm: '1.8vh',
     md: '2.2vh',
@@ -25,12 +27,81 @@ const theme = createTheme({
   },
 
   spacing:{
+    xxs: '0.5vh',
     xs: '0.75vh',
     sm: '1.5vh',
     md: '2vh',
     lg: '3vh',
     xl: '4vh',
     xxl: '5vh',
+  },
+
+  components:{
+    Progress:{
+      styles:{
+        root:{
+          backgroundColor: 'rgba(77, 77, 77, 0.4)',
+        },
+        
+      }
+    },
+
+    Select:{
+      styles:{
+        dropdown:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        input:{
+          padding: 'var(--mantine-spacing-sm)',
+        },
+        item:{
+          
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        wrapper:{
+          
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        option:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+
+      }
+    },
+    MultiSelect:{
+      styles:{
+        dropdown:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        pill:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        item:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        wrapper:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+        option:{
+          borderRadius: 'var(--mantine-radius-xxs)',
+        },
+
+      }
+    },
+    TextInput:{
+      styles:{
+        section:{
+          marginRight: '0.2vh',
+        },
+
+        input:{
+          padding: 'var(--mantine-spacing-sm)',
+        },
+
+       
+        
+      }
+    },
   },
 
   colors: {
@@ -46,7 +117,7 @@ const theme = createTheme({
       "#1c1c1c",
       "#000000",
     ],
-    clean:[
+    dirk:[
       "#ffffff",
       "#f3fce9",
       "#dbf5bd",

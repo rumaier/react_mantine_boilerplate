@@ -17,6 +17,7 @@ export async function fetchNui<T = unknown>(
   data?: unknown,
   mockData?: T,
 ): Promise<T> {
+  console.log("fetchNui", eventName, data, mockData);
   const options = {
     method: "post",
     headers: {
