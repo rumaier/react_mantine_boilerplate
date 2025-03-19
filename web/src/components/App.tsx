@@ -1,16 +1,17 @@
-import '@mantine/charts/styles.css';
-import { BackgroundImage, MantineProvider } from '@mantine/core';
-import '@mantine/dates/styles.css';
-import { Notifications } from '@mantine/notifications';
-import '@mantine/notifications/styles.css';
 import React, { useEffect, useState } from "react";
+
+import { BackgroundImage, MantineProvider } from '@mantine/core';
+import '@mantine/charts/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
+
 import { useSettings } from '../stores/settings';
-import theme from '../theme';
 import { runInitialFetches } from '../utils/initialFetch';
 import { isEnvBrowser } from '../utils/misc';
+
+import theme from '../theme';
+
 import "./App.css";
-import CustomModal from './Generic/Modal/Modal';
-import MyComponent from './MyComponent/main';
 
 
 
@@ -32,7 +33,7 @@ const App: React.FC = () => {
       },
     };
     
-    setCurTheme(updatedTheme);
+    // setCurTheme(updatedTheme);
     // set primary color
     setCurTheme({
       ...updatedTheme,
@@ -43,18 +44,15 @@ const App: React.FC = () => {
   }, [primaryColor, primaryShade, customTheme]);
 
   useEffect(() => {
-    // fetchSettings();
     runInitialFetches();
   }, []);
 
   return (
         
     <MantineProvider theme={curTheme} defaultColorScheme='dark'>
-      <Wrapper>
-        <Notifications />
-        <CustomModal />
-        <MyComponent />
-      </Wrapper>
+      <DevWrapper>
+        {/* you will add elements here */}
+      </DevWrapper>
     </MantineProvider>
   );
 };
@@ -65,7 +63,7 @@ export default App;
 
 
 /// Leave this in for your apps, it'll just make you have some background image
-function Wrapper({ children }: { children: React.ReactNode }) {
+function DevWrapper({ children }: { children: React.ReactNode }) {
   return isEnvBrowser() ? ( 
     <BackgroundImage w='100vw' h='100vh' style={{overflow:'hidden'}}
       src="https://i.ytimg.com/vi/TOxuNbXrO28/maxresdefault.jpg"
