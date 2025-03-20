@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { BackgroundImage, MantineProvider } from '@mantine/core';
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
-import '@mantine/notifications/styles.css';
 
 import { useSettings } from '../stores/settings';
 import { runInitialFetches } from '../utils/initialFetch';

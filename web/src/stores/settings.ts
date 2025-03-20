@@ -39,7 +39,6 @@ addInitialFetch('fetchSettings', () => {
   if (!isEnvBrowser()) {
     fetchNui<SettingsProps>('GET_SETTINGS')
       .then((data: SettingsProps) => {
-        // Ensure data is of type SettingsProps
         if (data.primaryColor && data.primaryShade && data.customTheme) {
           useSettings.setState({
             primaryColor: data.primaryColor,
