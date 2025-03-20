@@ -1,7 +1,7 @@
 import { createTheme } from "@mantine/core";
 
 const theme = createTheme({
-  primaryColor: "dirk",
+  primaryColor: "rumaier",
   primaryShade: 9,
   defaultRadius: "xxs",
   fontFamily: "Akrobat Regular, sans-serif",
@@ -117,17 +117,17 @@ const theme = createTheme({
       "#1c1c1c",
       "#000000",
     ],
-    dirk:[
-      "#ffffff",
-      "#f3fce9",
-      "#dbf5bd",
-      "#c3ee91",
-      "#ace765",
-      "#94e039",
-      "#7ac61f",
-      "#5f9a18",
-      "#29420a",
-      "#446e11",
+    rumaier: [
+      '#f1f1f1',
+      '#e7d6fb',
+      '#caaaf1',
+      '#ac7ce8',
+      '#9354e0',
+      '#833bdb',
+      '#7b2eda',
+      '#6921c2',
+      '#5d1cae',
+      '#501599'
     ],
   },
 });
